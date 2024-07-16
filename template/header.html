@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamUp: Community Dashboard</title>
+
+    <!-- custom css file link -->
+    <link rel="stylesheet" href="./public/css/style.css">
+    <!-- boxicons link -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- tailwind cdn link -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- bootstrap cdn link -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.rtl.min.css"> -->
+</head>
+<body>
+    <div class="navbar flex justify-between items-center p-4 mx-16">
+        <div class="flex justify-center items-center md:order-2">
+            <div class="hamburger-menu inline-block p-4 cursor-pointer md:hidden">
+                <div class="line h-0.5 w-6 my-1 bg-black"></div>
+                <div class="line h-0.5 w-6 my-1 bg-black"></div>
+                <div class="line h-0.5 w-6 my-1 bg-black"></div>
+            </div>
+
+            <div class="search md:hidden">
+                SearchIconM
+            </div>
+        </div>
+        <div class="logo md:order-1 text-center flex">
+            <div class="p-1 w-48">
+                <img class="h-10 w-26 md:h-12 md:w-28" src="./public/images/logo-teamUp.png" alt="TeamUp">
+            </div>
+        </div>
+        <div class="signin-btn md:order-3 text-center flex justify-center items-center">
+            <!-- NAVBAR MENU -->
+            <div class="features absolute inset-0 md:flex md:mx-8 md:space-x-8 -translate-x-96 md:translate-x-0 bg-gray-200 w-fit md:w-auto md:bg-white md:static hidden">
+                <div><a class="decoration-0 no-underline text-[#000] font-normal hover:text-[#0076CB]" href="">Features</a></div>
+                <div><a class="decoration-0 no-underline text-[#000] font-normal hover:text-[#0076CB]" href="">Explore</a></div>
+                <div><a class="decoration-0 no-underline text-[#000] font-normal hover:text-[#0076CB]" href="">Blog</a></div>
+                <div><a class="decoration-0 no-underline text-[#000] font-normal hover:text-[#0076CB]" href="">Contact</a></div>
+                <div><a class="decoration-0 no-underline text-[#000] font-normal hover:text-[#0076CB]" href="">Support</a></div>
+            </div>
+
+            <!-- SIGN IN -->
+            <div class="flex flex-wrap">
+                <button type="button" class="bg-[#007ABF] hover:bg-[#3286DA] font-bold py-2 px-4 rounded relative border-gray-100 bg-transparent transition-colors before:absolute before:left-0 before:top-0 before:-z-10 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:bg-[#3286DA] before:transition-transform before:duration-300 before:content-[''] before:hover:scale-x-100 text-[#007ABF] hover:text-white">
+                    <a class="decoration-0 no-underline" href="./template/layout/page_signin.php">
+                        Sign In
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- <hr> -->
+
+    <!-- custom js file link -->
+    <script src="./public/js/script.js"></script>
+</body>
+</html>
