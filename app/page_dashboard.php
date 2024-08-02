@@ -192,8 +192,11 @@
                     <label for="form-modal" class="pointer-events-none invisible fixed inset-0 flex cursor-pointer items-center justify-center overflow-hidden overscroll-contain bg-slate-700/30 opacity-0 transition-all duration-200 ease-in-out peer-checked:pointer-events-auto peer-checked:visible peer-checked:opacity-100 peer-checked:[&>*]:translate-y-0 peer-checked:[&>*]:scale-100" id="form-schedule">
                         <!-- modal box -->
                         <label for="" class="max-h-[calc(100vh - 5em)] h-fit max-w-lg scale-90 overflow-y-auto overscroll-contain rounded-md bg-white p-4 text-black shadow-2xl transition">
+
                             <!-- start: Form input event -->
                             <form method="POST" action="./module/save_schedule.php" class="bg-white p-2 rounded w-[470px]" id="schedule-form">
+                                <input type="hidden" name="id" value="">
+                                
                                 <h1 class="text-xl font-semibold mb-1 text-center tracking-wider">Schedule Form</h1>
                                 <h4 class="text-base font-normal mb-2 text-center text-gray-500">To get started, please complate form</h4>
 
