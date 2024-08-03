@@ -59,7 +59,7 @@
 
         <!--============ start: MAIN CONTENT ============-->
         <div class="flex justify-center items-center h-full flex-col pt-8">
-            <form method="POST" action="../module/auth-signup.php" class="bg-white p-5 rounded w-full md:w-1/3">
+            <form method="POST" action="./module/auth-signup.php" class="bg-white p-5 rounded w-full md:w-1/3">
 
                 <h1 class="text-4xl font-semibold mb-2 text-center">Create an account</h1>
                 <h4 class="text-2xl font-normal mb-6 text-center text-gray-500">To get started, please sign up</h4>

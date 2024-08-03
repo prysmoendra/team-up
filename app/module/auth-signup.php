@@ -22,7 +22,7 @@
         // check same username/email
         if (mysqli_num_rows($check_email) > 0) {
           // The username/email already exists
-            echo "<script type='text/javascript'>alert('Maaf, email $email tidak tersedia!');document.location='../layout/page_signup.php';</script>";
+            echo "<script type='text/javascript'>alert('Maaf, email $email tidak tersedia!');document.location='../page_signup.php';</script>";
     
         } else {
         //   The username/email is unique
@@ -32,9 +32,25 @@
                 // make encrypt password
                 $pass = password_hash($password, PASSWORD_DEFAULT);
 
-                $query = "INSERT INTO users(name, email, password) VALUES ('$name', '$email', '$pass')";
-                $result = mysqli_query($conn, $query);
-                echo "<script type='text/javascript'>document.location='../layout/page_dashboard.php';</script>";
+                // insert a new account users
+                $query_users = "INSERT INTO users(name, email, password) VALUES ('$name', '$email', '$pass')";
+                if (mysqli_query($conn, $query_users)) {
+                    // retrieve the users id
+                    $last_id = mysqli_insert_id($conn);
+                    // echo "<script type='text/javascript'>alert('New record USER created successfully. Last inserted ID is: $last_id');</script>";
+
+                    if ($last_id != NULL) {
+                        // auto-generated members by users_id
+                        $query_members = "INSERT INTO members(users_id) VALUES ('$last_id')";
+                        $result = mysqli_query($conn, $query_members);
+
+                        // $members_id = $conn->insert_id;
+                        // echo "New record MEMBER created successfully. Last inserted ID is: " . $members_id;
+                    }
+
+                }
+
+                echo "<script type='text/javascript'>document.location='../page_signin.php';</script>";
             }
         }
 	}
