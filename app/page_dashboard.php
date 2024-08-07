@@ -26,8 +26,25 @@
     <!-- bootstrap icon cdn link -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.rtl.min.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .main-null-content {
+            background-image: url('../public/assets/bg-ifnull.jpg');
+        }
+        .main-null-content .bg-makesure {
+            background-image: linear-gradient(to right, transparent, #ffffff), url('../public/assets/bg-join.png');
+            background-size: cover;
+        }
+        /* .main-null-content .bg-join {
+            background-image: linear-gradient(to right, transparent, #000000), url('../public/assets/bg-join.png');
+            background-size: cover;
+        }
+        .main-null-content .bg-create {
+            background-image: linear-gradient(to right, transparent, #000000), url('../public/assets/bg-create.png');
+            background-size: cover;
+        } */
+    </style>
 </head>
-<body class="bg-white">
+<body class="bg-gray-200">
     <!--========== start: SIDEBAR ==========-->
     <section class="main-sidebar fixed top-0 bottom-0 lg:left-0 p-2 w-[280px] h-full overflow-y-auto text-center bg-[#F3F5F5] shadow-md shadow-gray-500 rounded-r-2xl flex flex-col border-r-2 justify-between">
         <div class="flex flex-col w-full">
@@ -70,13 +87,17 @@
             <!-- home -->
             <div class="p-2.5 mt-2 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-transparent hover:bg-[#D0DEE8] text-gray-600">
                 <i class="bi bi-house-door-fill"></i>
-                <span class="text-[15px] ml-4 text-gray-600">Home</span>
+                <a href="./page_dashboard.php">
+                    <span class="text-[15px] ml-4 text-gray-600">Home</span>
+                </a>
             </div>
 
             <!-- schedule -->
             <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-transparent hover:bg-[#D0DEE8] text-gray-600">
-                <i class="bi bi-calendar2-event"></i>
-                <span class="text-[15px] ml-4 text-gray-600">Schedule</span>
+                <i class="bi bi-calendar-week"></i>
+                <a href="./page_schedule.php">
+                    <span class="text-[15px] ml-4 text-gray-600">Schedule</span>
+                </a>
             </div>
 
             <hr class="my-4 text-gray-600">
@@ -107,10 +128,10 @@
             </div>
 
             <!-- logout -->
-            <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 text-white font-medium tracking-wider">
+            <!-- <div class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 text-white font-medium tracking-wider">
                 <i class="bi bi-box-arrow-right"></i>
                 <span class="text-[15px] ml-4 text-gray-200"><a href="./module/auth-logout.php">Logout</a></span>
-            </div>
+            </div> -->
         </div>
 
         <!-- profile -->
@@ -127,7 +148,7 @@
                     </li>
                     <li class="flex justify-start items-start hover:bg-[#D0DEE8] rounded-md px-2 py-2">
                         <i class="bi bi-box-arrow-left text-red-600"></i>
-                        <span class="text-[15px] ml-3 text-red-600">Log out</span>
+                        <span class="text-[15px] ml-3 text-red-600"><a href="./module/auth-logout.php">Log out</a></span>
                     </li>
                 </ul>
             </div>
@@ -149,8 +170,177 @@
 
     </section>
     <!--========== end: SIDEBAR ==========-->
+
+    <!-- condition when data group is NULL -->
+    <?php
+        require_once("./module/db-connect.php");
+        $filter_group_user = "SELECT * FROM members WHERE users_id = '$id'";
+        $query = mysqli_query($conn, $filter_group_user);
+        $user = mysqli_fetch_array($query);
+
+        // check if user member dont have any group, user member need join any group or create group first
+        if ($user['groups_id'] == NULL) {
+    ?>
+
+    <!-- start: MAIN SECTION (if NULL) -->
+    <section class="main-null-content w-[calc(100%-280px)] ml-[280px] min-h-screen flex flex-row bg-white">
+        <!-- <div class="relative h-screen flex items-center justify-center bg-cover bg-center">
+            <div class="absolute inset-0 bg-white opacity-75"></div>
+            <div class="relative z-10 text-black text-center">
+                <h1 class="text-4xl mb-4">Hello, World!</h1>
+                <p class="text-lg">This is an example of a background image with an overlay.</p>
+            </div>
+        </div> -->
+        <div class="relative z-0 w-full">
+            <div class="absolute inset-0 bg-gray-200 opacity-90"></div>
+
+            <!-- 1. make sure -->
+            <div class="relative z-10 text-black text-start">
+                <h1 class="bg-makesure text-4xl font-normal text-black tracking-wide rounded-lg bg-white w-fit ml-12 mt-12 p-12">
+                    Make sure you have any group right!
+                    <p class="text-lg text-start font-thin mt-3">Add a class to get started creating event collaboration with community team,<br> Please Join the group community or Create one group community for your group community team.</p>
+                </h1>
+            </div>
+
+            <!-- 2. join group -->
+            <div class="relative z-10 text-black text-start">
+                <h1 class="bg-join text-2xl font-medium text-black tracking-wide rounded-lg bg-white hover:drop-shadow-lg w-fit ml-12 mt-8 p-12 hover:text-blue-400 cursor-pointer" onclick="showJoin()" id="container1">
+                    Join the group community
+                    <p class="text-lg text-start font-thin mt-3">To start creating event collaboration with community team</p>
+                </h1>
+            </div>
+
+            <!-- 3. create group -->
+            <div class="relative z-10 text-black text-start">
+                <h1 class="bg-create text-2xl font-medium text-black tracking-wide rounded-lg bg-white hover:drop-shadow-lg w-fit ml-12 mt-8 p-12 hover:text-blue-400 cursor-pointer" onclick="showCreate()" id="container2">
+                    Create one group community
+                    <p class="text-lg text-start font-thin mt-3">To start creating event collaboration with community team</p>
+                </h1>
+            </div>
+        </div>
+
+        <!-- start: RIGHT CONTENT {join} -->
+        <div class="right-content bg-white h-screen w-full max-w-[400px] ml-0 border-l-2 drop-shadow-xl overflow-y-auto inset-0 hidden" id="join-modal">
+            <div class="flex flex-col items-start justify-start m-2">
+
+                <div class="flex flex-col justify-between w-full">
+                    <!-- event details -->
+                    <div class="flex flex-row justify-between items-start border-b-2">
+                        <h1 class="text-2xl font-semibold text-center tracking-wider text-[#165A81] m-3">Join group</h1>
+                    </div>
+                </div>
+
+                <div class="modal-body bg-white flex justify-start items-start max-w-[400px]] w-full py-4 flex-col" id="info-event">
+
+                    <!-- start: Form input Join -->
+                    <form method="POST" action="./module/find_group.php" class="bg-white p-2 rounded w-full" id="schedule-form">
+                        <input type="hidden" name="id" value="">
+                        
+                        <h1 class="text-xl font-semibold mb-1 text-center tracking-wider">Let's go find the group!</h1>
+                        <h4 class="text-base font-normal mb-2 text-center text-gray-500">To get started, please complate form</h4>
+
+                        <div class="mb-4 pt-4">
+                            <label for="name_group" class="block mb-2 text-base font-medium tracking-wide text-gray-700">Group Name</label>
+                            <input type="text" id="name_group" name="name_group" class="block w-full px-3 py-2 rounded-lg border bg-[#F5F7FA] border-gray-100 placeholder:font-light placeholder:tracking-wide focus:outline-none focus:ring-blue-400 focus:border-blue-400 shadow-sm focus:ring-1 disabled:shadow-none" placeholder="Enter your group name" required>
+                        </div>
+
+                        <div class="mb-4 pt-0">
+                            <label for="code_group" class="block mb-2 text-base font-medium tracking-wide text-gray-700">Code Group</label>
+                            <input type="text" id="code_group" name="code_group" class="block w-full px-3 py-2 rounded-lg border bg-[#F5F7FA] border-gray-100 placeholder:font-light placeholder:tracking-wide focus:outline-none focus:ring-blue-400 focus:border-blue-400 shadow-sm focus:ring-1 disabled:shadow-none" placeholder="Enter your unique code group" required>
+                        </div>
+                            
+                        <div class="mb-6 pt-0">
+                            <label for="lock_code" class="block mb-2 text-base font-medium tracking-wide text-gray-700 flex-row">Lock Code *</label>
+                            <input type="text" id="lock_code" name="lock_code" class="block w-full px-3 py-2 rounded-lg border bg-[#F5F7FA] border-gray-100 placeholder:font-light placeholder:tracking-wide focus:outline-none focus:ring-blue-400 focus:border-blue-400 shadow-sm focus:ring-1 disabled:shadow-none" placeholder="Enter your password group code if required">
+                        </div>
+
+                        <hr class="my-4 text-gray-800">
+
+                        <button type="submit" class="w-full px-4 py-3 rounded-lg bg-[#007ABF] text-white text-lg font-medium tracking-wider shadow-sm mt-2 hover:bg-[#1E98F0]">Find and join group</button>
+                    </form>
+                    <!-- end: Form input event -->
+
+                    <div class="p-4 border-t flex justify-center items-center w-full sticky top-0">
+                        <button type="button" id="closeModalJoin" class="bg-gray-500 text-white px-4 py-2 rounded hover:drop-shadow-md">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: RIGHT CONTENT {join} -->
+
+        <!-- start: RIGHT CONTENT {create} -->
+        <div class="right-content bg-white h-screen w-full max-w-[400px] ml-0 border-l-2 drop-shadow-xl overflow-y-auto inset-0 hidden" id="create-modal">
+            <div class="flex flex-col items-start justify-start m-2">
+
+                <div class="flex flex-col justify-between w-full">
+                    <!-- event details -->
+                    <div class="flex flex-row justify-between items-start border-b-2">
+                        <h1 class="text-2xl font-semibold text-center tracking-wider text-[#165A81] m-3">Create group</h1>
+                    </div>
+                </div>
+
+                <div class="modal-body bg-white flex justify-start items-start max-w-[400px]] w-full py-4 flex-col" id="info-event">
+                    
+                    <!-- start: Form input Join -->
+                    <form action="./module/save_group.php" method="POST" class="bg-white p-2 rounded w-full" id="group-form">
+                        <input type="hidden" name="id" value="">
+                        
+                        <h1 class="text-xl font-semibold mb-1 text-center tracking-wider">Let's go create one group!</h1>
+                        <h4 class="text-base font-normal mb-2 text-center text-gray-500">To get started, please complate form</h4>
+
+                        <div class="mb-4 pt-4">
+                            <label for="name_group" class="block mb-2 text-base font-medium tracking-wide text-gray-700">Group Name</label>
+                            <input type="text" id="name_group" name="name_group" class="block w-full px-3 py-2 rounded-lg border bg-[#F5F7FA] border-gray-100 placeholder:font-light placeholder:tracking-wide focus:outline-none focus:ring-blue-400 focus:border-blue-400 shadow-sm focus:ring-1 disabled:shadow-none" placeholder="Enter your group name" required>
+                        </div>
+
+                        <div class="mb-4 pt-0">
+                            <label for="code_group" class="block mb-2 text-base font-medium tracking-wide text-gray-700">Code Group</label>
+                            <input type="text" id="code_group" name="code_group" class="block w-full px-3 py-2 rounded-lg border bg-[#F5F7FA] border-gray-100 placeholder:font-light placeholder:tracking-wide focus:outline-none focus:ring-blue-400 focus:border-blue-400 shadow-sm focus:ring-1 disabled:shadow-none" placeholder="Enter your unique code group" required>
+                        </div>
+
+                        <div class="mb-0">
+                            <label for="description_group" class="block mb-2 text-base font-medium tracking-wide text-gray-700">Description Group</label>
+                            <textarea class="bg-[#F5F7FA] border-gray-100 px-3 py-2 h-32 rounded-lg border w-full focus:ring-blue-400 focus:border-blue-400 shadow-sm focus:ring-1 disabled:shadow-none" name="description_group" id="description_group" required></textarea>
+                        </div>
+
+                        <div class="mb-4 pt-2">
+                            <label for="is_lock" class="block mb-2 text-base font-medium tracking-wide text-gray-700">Secure Group</label>
+                            <div class="ml-3">
+                                <input type="radio" id="private" name="is_lock" value="1" class="mr-3 cursor-pointer">
+                                <label for="private" class="tracking-wide hover:drop-shadow-md">Private group</label><br>
+                                <input type="radio" id="anyone" name="is_lock" value="0" class="mt-2 mr-3 cursor-pointer" checked>
+                                <label for="anyone" class="tracking-wide hover:drop-shadow-md">Anyone can join</label><br>
+                            </div>
+                        </div>
+
+                        <!-- Placeholder for the new input -->
+                        <div id="privateCodeInput" class="hidden mb-5">
+                            <label for="lock_code" class="block mb-2 text-base font-medium tracking-wide text-gray-700">Private Code</label>
+                            <input type="text" id="lock_code" name="lock_code" class="block w-full px-3 py-2 rounded-lg border bg-[#F5F7FA] border-gray-100 placeholder:font-light placeholder:tracking-wide focus:outline-none focus:ring-blue-400 focus:border-blue-400 shadow-sm focus:ring-1 disabled:shadow-none" placeholder="Enter your password code group">
+                        </div>
+
+                        <hr class="my-4 text-gray-800">
+
+                        <button type="submit" class="w-full px-4 py-3 rounded-lg bg-[#007ABF] text-white text-lg font-medium tracking-wider shadow-sm mt-2 hover:bg-[#1E98F0]">Save group</button>
+                    </form>
+                    <!-- end: Form input event -->
+
+                    <div class="p-4 border-t flex justify-center items-center w-full sticky top-0">
+                        <button type="button" id="closeModalCreate" class="bg-gray-500 text-white px-4 py-2 rounded hover:drop-shadow-md">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: RIGHT CONTENT {create} -->
+    </section>
+    <!-- end: MAIN SECTION (if NULL) -->
     
-    <!--========== start: MAIN CONTENT ==========-->
+
+    <!-- condition when data group is NOT NULL -->
+    <?php } else {
+
+    ?>
+    <!--========== start: MAIN CONTENT (if NOT NULL) ==========-->
     <section class="main-content w-[calc(100%-280px)] ml-[280px] min-h-screen flex flex-row">
         <!-- start: MID CONTENT -->
         <div class="mid-content flex flex-col h-screen w-full">
@@ -230,12 +420,12 @@
                 </div>
             </div>
             <!-- end: TOP SECTION -->
-
+            
             <!-- start: MAIN SECTION -->
             <div class="mid-main-content flex flex-auto w-full h-80">
 
                 <!-- load the Full calendar -->
-                <div class="col-span-8 flex w-full border-t-2 p-4 z-0" id="calendar"></div>
+                <div class="col-span-8 flex w-full border-t-2 p-4 bg-white" id="calendar"></div>
 
             </div>
             <!-- end: MAIN SECTION -->
@@ -243,7 +433,7 @@
         <!-- end: MID CONTENT -->
 
         <!-- start: RIGHT CONTENT -->
-        <div class="right-content bg-white h-screen w-full max-w-[400px] ml-3 border-l-2 drop-shadow-xl overflow-y-auto inset-0 hidden opacity-0" id="event-details-modal">
+        <div class="right-content bg-white h-screen w-full max-w-[400px] ml-1.5 border-l-2 rounded-l-3xl drop-shadow-xl overflow-y-auto inset-0 hidden opacity-0" id="event-details-modal">
             <div class="flex flex-col items-start justify-start m-2">
 
                 <div class="flex flex-col justify-between w-full">
@@ -310,40 +500,13 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Event Details Modal -->
-        <!-- <div id="modalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 hidden"></div>
-
-        <div id="event-details-modal" class="fixed inset-0 items-center justify-center hidden">
-            <div class="bg-white rounded-lg shadow-lg w-1/3">
-                <div class="p-4 border-b flex justify-between items-center">
-                    <h5 class="text-lg font-bold">Schedule Details</h5>
-                    <button type="button" id="closeModalButton" class="text-gray-500 hover:text-gray-800" onclick="hideModal()">&times;</button>
-                </div>
-                <div class="p-4">
-                    <div class="container mx-auto">
-                        <dl>
-                            <dt class="text-gray-600">Title</dt>
-                            <dd id="title" class="font-bold text-lg"></dd>
-                            <dt class="text-gray-600">Description</dt>
-                            <dd id="description" class="mt-1"></dd>
-                            <dt class="text-gray-600">Start</dt>
-                            <dd id="start" class="mt-1"></dd>
-                            <dt class="text-gray-600">End</dt>
-                            <dd id="end" class="mt-1"></dd>
-                        </dl>
-                    </div>
-                </div>
-                <div class="p-4 border-t flex justify-end">
-                    <button type="button" id="edit" class="bg-blue-500 text-white px-4 py-2 rounded mr-2" data-id="">Edit</button>
-                    <button type="button" id="delete" class="bg-red-500 text-white px-4 py-2 rounded mr-2" data-id="">Delete</button>
-                    <button type="button" id="closeModalButtonFooter" class="bg-gray-500 text-white px-4 py-2 rounded" onclick="hideModal()">Close</button>
-                </div>
-            </div>
-        </div> -->
         <!-- end: RIGHT CONTENT -->
     </section>
-    <!--========== end: MAIN CONTENT ==========-->
+    <!--========== end: MAIN CONTENT (if NOT NULL) ==========-->
+
+    <?php }
+
+    ?>
 
 <?php 
     }

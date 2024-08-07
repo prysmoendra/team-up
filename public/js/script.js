@@ -19,6 +19,55 @@ function hideModal() {
     eventDetailsModal.classList.add('opacity-0');
 }
 
+
+// function showJoin() {
+//     joinModal.classList.remove('hidden');
+//     joinModal.classList.remove('opacity-0');
+// }
+// function hideJoin() {
+//     joinModal.classList.add('hidden');
+//     joinModal.classList.add('opacity-0');
+// }
+
+// function showCreate() {
+//     createModal.classList.remove('hidden');
+//     createModal.classList.remove('opacity-0');
+// }
+// function hideCreate() {
+//     createModal.classList.add('hidden');
+//     createModal.classList.add('opacity-0');
+// }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const container1 = document.getElementById('container1');
+    const container2 = document.getElementById('container2');
+    const joinModal = document.getElementById('join-modal');
+    const createModal = document.getElementById('create-modal');
+    const closeButton1 = document.getElementById('closeModalJoin');
+    const closeButton2 = document.getElementById('closeModalCreate');
+
+    function showBox(boxToShow, boxToHide) {
+        boxToHide.classList.add('hidden');
+        boxToShow.classList.remove('hidden');
+    }
+
+    // Event listeners for containers
+    container1.addEventListener('click', function () {
+        showBox(joinModal, createModal);
+    });
+    container2.addEventListener('click', function () {
+        showBox(createModal, joinModal);
+    });
+
+    // Event listeners for close buttons
+    closeButton1.addEventListener('click', function () {
+        joinModal.classList.add('hidden');
+    });
+    closeButton2.addEventListener('click', function () {
+        createModal.classList.add('hidden');
+    });
+})
+
 // const optionDetails = document.getElementById('event-detail');
 
 // function showOptions() {
@@ -48,6 +97,29 @@ function optionProfile() {
     option_profile.classList.toggle('hidden');
 }
 optionProfile()
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const privateRadio = document.getElementById('private');
+    const anyoneRadio = document.getElementById('anyone');
+    const privateCodeInput = document.getElementById('privateCodeInput');
+
+    function togglePrivateCodeInput() {
+        if (privateRadio.checked) {
+            privateCodeInput.classList.remove('hidden');
+        } else {
+            privateCodeInput.classList.add('hidden');
+        }
+    }
+
+    // Initial check to hide or show the input field based on default selection
+    togglePrivateCodeInput();
+
+    // Event listeners for radio buttons
+    privateRadio.addEventListener('change', togglePrivateCodeInput);
+    anyoneRadio.addEventListener('change', togglePrivateCodeInput);
+});
 // end: DROPDOWN MENU
 
 

@@ -38,17 +38,19 @@
             </div>
             <div class="logo md:order-1 text-center flex">
                 <div class="p-1 w-48">
-                    <img class="h-10 w-26 md:h-12 md:w-28" src="../public/assets/logo-teamUp.png" alt="TeamUp">
+                    <a class="decoration-0 no-underline text-[#000]" href="../index.php">
+                        <img class="h-10 w-26 md:h-12 md:w-28" src="../public/assets/logo-teamUp.png" alt="TeamUp">
+                    </a>
                 </div>
             </div>
             <div class="signin-btn md:order-3 text-center flex justify-center items-center">
-                <div class="features absolute inset-0 md:flex md:mx-8 md:space-x-8 -translate-x-96 md:translate-x-0 bg-gray-200 w-fit md:w-auto md:bg-white md:static hidden">
+                <!-- <div class="features absolute inset-0 md:flex md:mx-8 md:space-x-8 -translate-x-96 md:translate-x-0 bg-gray-200 w-fit md:w-auto md:bg-white md:static hidden">
                     <div><a class="decoration-0 no-underline text-[#000]" href="../index.php">Home</a></div>
                     <div><a class="decoration-0 no-underline text-[#000]" href="">Calendar</a></div>
                     <div><a class="decoration-0 no-underline text-[#000]" href="">Group</a></div>
                     <div><a class="decoration-0 no-underline text-[#000]" href="">Contact</a></div>
                     <div><a class="decoration-0 no-underline text-[#000]" href="">Feedback</a></div>
-                </div>
+                </div> -->
 
                 <div>
                     <!-- <button type="button" class="bg-[#007ABF] hover:bg-[#3286DA] text-blue-50 hover:text-slate-100 font-medium py-2 px-4 rounded">

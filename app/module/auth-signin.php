@@ -36,7 +36,7 @@
                     echo "<script type='text/javascript'>alert('Welcome to TeamUp $row[name]!');document.location='./page_dashboard.php';</script>";
                 } 
             } else {
-                echo "<script type='text/javascript'>alert('Your Username or Password INCORECT! Please check again!');document.location='../page_signin.php';</script>";
+                echo "<script type='text/javascript'>alert('Your Username or Password INCORECT! Please check again!');document.location='./page_signin.php';</script>";
             }
         }
     }

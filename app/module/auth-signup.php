@@ -37,16 +37,16 @@
                 if (mysqli_query($conn, $query_users)) {
                     // retrieve the users id
                     $last_id = mysqli_insert_id($conn);
-                    // echo "<script type='text/javascript'>alert('New record USER created successfully. Last inserted ID is: $last_id');</script>";
+                    echo "<script type='text/javascript'>alert('New record USER created successfully. Last inserted ID is: $last_id');</script>";
 
-                    if ($last_id != NULL) {
+                    // if ($last_id != NULL) {
                         // auto-generated members by users_id
-                        $query_members = "INSERT INTO members(users_id) VALUES ('$last_id')";
-                        $result = mysqli_query($conn, $query_members);
+                        // $query_members = "INSERT INTO members(users_id) VALUES ('$last_id')";
+                        // $result = mysqli_query($conn, $query_members);
 
                         // $members_id = $conn->insert_id;
                         // echo "New record MEMBER created successfully. Last inserted ID is: " . $members_id;
-                    }
+                    // }
 
                 }
 
