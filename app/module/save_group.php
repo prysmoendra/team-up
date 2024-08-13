@@ -26,7 +26,7 @@
     // check if code_group already exists
     $sql = "SELECT * FROM groups WHERE code_group = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $code_group);
+    $stmt->bind_param("s", $lock_code_group);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -37,7 +37,7 @@
         
     } else {
         // the group code is unique
-        $sql = "INSERT INTO groups(name_group, description_group, users_id, code_group, is_locked, lock_code) VALUES ('$gname','$gdesc','$active_user_id','$gcode','$is_lock','$code') ";
+        $sql = "INSERT INTO groups(name_group, description_group, users_id, code_group, is_locked, lock_code) VALUES ('$gname','$gdesc','$active_user_id','$gcode','$is_lock','$lock_code') ";
         echo "<script type='text/javascript'>alert('Your Group Community successfully saved! Let's get started!');document.location='../page_schedule.php';</script>";
     
         $save = $conn->query($sql);
