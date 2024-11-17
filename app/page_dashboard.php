@@ -174,12 +174,12 @@
     <!-- condition when data group is NULL -->
     <?php
         require_once("./module/db-connect.php");
-        $filter_group_user = "SELECT * FROM members WHERE users_id = '$id'";
+        $filter_group_user = "SELECT COUNT(*) FROM `members` JOIN users ON members.users_id = users.id WHERE users.id = '$id'";
         $query = mysqli_query($conn, $filter_group_user);
         $user = mysqli_fetch_array($query);
 
         // check if user member dont have any group, user member need join any group or create group first
-        if ($user['groups_id'] == NULL) {
+        if ($user == 0) {
     ?>
 
     <!-- start: MAIN SECTION (if NULL) -->
@@ -542,7 +542,7 @@
         return $softColors[array_rand($softColors)];
     }
 
-    $schedules = $conn->query("SELECT * FROM `schedule_list`");
+    $schedules = $conn->query("SELECT * FROM `schedule_list` LEFT JOIN events ON schedule_list.events_id = events.id LEFT JOIN members ON events.members_id = members.id WHERE members.users_id = '$id'");
     $sched_res = [];
     foreach($schedules->fetch_all(MYSQLI_ASSOC) as $row){
         $row['sdate'] = date("F d, Y h:i A", strtotime($row['start_datetime']));
